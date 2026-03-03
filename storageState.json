@@ -1,0 +1,51 @@
+{
+  "cookies": [
+    {
+      "name": "_ga",
+      "value": "GA1.1.967341017.1772388994",
+      "domain": ".viewiq.com",
+      "path": "/",
+      "expires": 1806948993.791514,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_T8VKV96293",
+      "value": "GS2.1.s1772388993$o1$g1$t1772389004$j49$l0$h0",
+      "domain": ".viewiq.com",
+      "path": "/",
+      "expires": 1806949004.49072,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://rc.viewiq.com",
+      "localStorage": [
+        {
+          "name": "auth_token",
+          "value": "5038c924023f72e594b337191551557db3f8f161"
+        },
+        {
+          "name": "_pendo_meta.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
+          "value": "{\"ttl\":1781029004528,\"value\":3201071977}"
+        },
+        {
+          "name": "_pendo_visitorId.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
+          "value": "{\"ttl\":1781029004528,\"value\":\"15831\"}"
+        },
+        {
+          "name": "_pendo_utm.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
+          "value": "{\"channel\":\"Direct\"}"
+        },
+        {
+          "name": "_pendo_sessionId.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
+          "value": "{\"sessionId\":\"ckFPy5dReQbHisTd\",\"timestamp\":1772389004529}"
+        }
+      ]
+    }
+  ]
+}

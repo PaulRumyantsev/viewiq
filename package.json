@@ -1,0 +1,23 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:atomic": "playwright test -c playwright.atomic.config.js",
+    "test:fast": "playwright test -c playwright.fast.config.js",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "mailosaur": "^11.0.2"
+  }
+}
+
