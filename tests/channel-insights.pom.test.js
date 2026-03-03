@@ -1,26 +1,47 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../src/pages/login.page.js';
-import { InsightsPage } from '../src/pages/insights.page.js';
+import { InsightsPageChannels, ChannelsPagination } from '../src/pages/insights.page.js';
 
-test.setTimeout(30000);
+test.describe('Insights Tests (POM)', () => {
 
-test('1 Search Functionality', async ({ page }) => {
-  await page.goto('/');
-  if (process.env.SKIP_LOGIN === '1') return;
-  // 1) Login
-  const login = new LoginPage(page);
-  await login.loginWithOtp(process.env.EMAIL, process.env.PASSWORD);
+  test.setTimeout(30000);
 
-  // 2) Insights actions
-  const insights = new InsightsPage(page);
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    // Login (atomic mode)
+    if (process.env.SKIP_LOGIN !== '1') {
+      const login = new LoginPage(page);
+      await login.loginWithOtp(
+        process.env.EMAIL,
+        process.env.PASSWORD
+      );
+    }
+  });
 
-  // close modal if it appears
-  await insights.dismissSecurityModalIfPresent();
+  test('1 Search Functionality', async ({ page }) => {
+    const insights = new InsightsPageChannels(page);
+    // open Insights
+    await insights.open();
+    // search
+    await insights.search('MrBeast');
+    // verify result
+    await insights.expectResultVisible('MrBeast');
+  });
 
-  // 3) Open Insights -> Channels -> Search
-  await insights.open();
-  await insights.search('MrBeast');
+  test('2 Pagination: 32 results per page (Channels)', async ({ page }) => {
+    const insights = new InsightsPageChannels(page);
+    const pagination = new ChannelsPagination(page);
+    // open Insights
+    await insights.open();
+    await expect(page).toHaveTitle(/ViewIQ/i);
+    // page 1
+    await pagination.expect32Results();
+    // page 3
+    await pagination.goToPage3();
+    await pagination.expect32Results();
+    // page 200
+    await pagination.goToPage200();
+    await pagination.expect32Results();
+  });
 
-  // 4) Assert result
-  await expect(page.getByText('MrBeast', { exact: true }).first()).toBeVisible();
 });

@@ -1,13 +1,13 @@
 // src/pages/insights.page.js
 import { expect } from '@playwright/test';
 
-export class InsightsPage {
+export class InsightsPageChannels {
   constructor(page) {
     this.page = page;
 
     this.insightsNav = page.getByTestId('/insights');
-    this.channelsTab = page.getByText('Channels');
-    this.videosTab = page.getByText('Videos');
+    this.channelsTab = page.getByText('Channels', { exact: true });
+    this.videosTab = page.getByText('Videos', { exact: true });
     this.skipForNow = page.getByText('Skip for now').first();
     this.searchBox = page.getByRole('searchbox');
   }
@@ -32,6 +32,33 @@ export class InsightsPage {
   }
 
   async expectResultVisible(text) {
-    await expect(this.page.getByText(text)).toBeVisible();
+  await expect(
+    this.page.getByText(text, { exact: true }).first()).toBeVisible();
+  }
+}
+
+export class ChannelsPagination {
+  constructor(page) {
+    this.page = page;
+
+    // Results
+    this.cards = page.locator('.research-card.channel');
+
+    // Pagination
+    this.page3 = page.getByRole('button', { name: '3' });
+    this.page200 = page.getByRole('button', { name: '200' });
+  }
+
+  async expect32Results() {
+    await expect(this.cards.first()).toBeVisible({ timeout: 30000 });
+    await expect(this.cards).toHaveCount(32);
+  }
+
+  async goToPage3() {
+    await this.page3.click();
+  }
+
+  async goToPage200() {
+    await this.page200.click();
   }
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:atomic": "playwright test -c playwright.atomic.config.js",
-    "test:fast": "playwright test -c playwright.fast.config.js",
+    "test:fast": "SKIP_LOGIN=1 playwright test -c playwright.fast.config.js",
     "report": "playwright show-report"
   },
   "keywords": [],
@@ -20,4 +20,3 @@
     "mailosaur": "^11.0.2"
   }
 }
-
