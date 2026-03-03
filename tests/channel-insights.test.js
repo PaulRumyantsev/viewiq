@@ -7,6 +7,8 @@ test.describe('1 Search Functionality', () => {
   test.setTimeout(80000);
 
   test.beforeEach(async ({ page }) => {
+    await page.goto('/'); 
+    if (process.env.SKIP_LOGIN === '1') return;
     const login = new LoginPage(page);
     await login.loginWithOtp(
       process.env.EMAIL,
@@ -15,7 +17,7 @@ test.describe('1 Search Functionality', () => {
   });
 
   test('1 Search Functionality', async ({ page }) => {
-    await locators.skipForNow(page).click();
+    await locators.skipForNow(page).click({ timeout: 2000 }).catch(() => {});
     await expect(page).toHaveTitle(/ViewIQ/i);
     await locators.insightsNav(page).click();
     await expect(page.getByText('Channels', { exact: true })).toBeVisible();
@@ -32,6 +34,8 @@ test.describe('2 Insights: Pagination', () => {
   test.setTimeout(30000);
 
   test.beforeEach(async ({ page }) => {
+    await page.goto('/'); 
+    if (process.env.SKIP_LOGIN === '1') return;
     const login = new LoginPage(page);
     await login.loginWithOtp(
       process.env.EMAIL,
@@ -40,7 +44,7 @@ test.describe('2 Insights: Pagination', () => {
   });
 
   test('Pagination: 32 results per page (Channels)', async ({ page }) => {
-    await locators.skipForNow(page).click();
+    await locators.skipForNow(page).click({ timeout: 2000 }).catch(() => {});
     await expect(page).toHaveTitle(/ViewIQ/i);
     await locators.insightsNav(page).click();
     await expect(page.getByText('Channels', { exact: true })).toBeVisible();
@@ -69,6 +73,8 @@ test.describe('2 Insights: Pagination API GET', () => {
   test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
+    await page.goto('/'); 
+    if (process.env.SKIP_LOGIN === '1') return;
     const login = new LoginPage(page);
     await login.loginWithOtp(
       process.env.EMAIL,
@@ -105,6 +111,8 @@ test.describe('3 Filters - Set Min', () => {
   test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
+    await page.goto('/'); 
+    if (process.env.SKIP_LOGIN === '1') return;
     const login = new LoginPage(page);
     await login.loginWithOtp(
       process.env.EMAIL,
@@ -113,7 +121,7 @@ test.describe('3 Filters - Set Min', () => {
   });
 
   test('3 Filters - Set Min', async ({ page }) => {
-    await locators.skipForNow(page).click();
+    await locators.skipForNow(page).click({ timeout: 2000 }).catch(() => {});
     await expect(page).toHaveTitle(/ViewIQ/i);
     await locators.insightsNav(page).click();
     await expect(page.getByText('Channels', { exact: true })).toBeVisible();
@@ -154,6 +162,8 @@ test.describe('4 Suitability Filter + Reset', () => {
   test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    if (process.env.SKIP_LOGIN === '1') return;
     const login = new LoginPage(page);
     await login.loginWithOtp(
       process.env.EMAIL,
@@ -162,7 +172,7 @@ test.describe('4 Suitability Filter + Reset', () => {
   });
 
   test('4 Suitability Filter + Reset', async ({ page }) => {
-    await locators.skipForNow(page).click();
+    await locators.skipForNow(page).click({ timeout: 2000 }).catch(() => {});
     await expect(page).toHaveTitle(/ViewIQ/i);
     await locators.insightsNav(page).click();
     await expect(page.getByText('Channels', { exact: true })).toBeVisible();

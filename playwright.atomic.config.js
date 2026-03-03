@@ -7,7 +7,8 @@ dotenv.config();
 export default defineConfig({
   testDir: './tests',
   timeout: 120000,
-  fullyParallel: true,
+  workers: 1,
+  fullyParallel: false,
   reporter: 'html',
   retries: process.env.CI ? 2 : 0,
 

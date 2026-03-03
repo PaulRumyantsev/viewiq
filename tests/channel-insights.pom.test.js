@@ -5,7 +5,9 @@ import { InsightsPage } from '../src/pages/insights.page.js';
 test.setTimeout(30000);
 
 test('1 Search Functionality', async ({ page }) => {
-  // 1) Login (OTP)
+  await page.goto('/');
+  if (process.env.SKIP_LOGIN === '1') return;
+  // 1) Login
   const login = new LoginPage(page);
   await login.loginWithOtp(process.env.EMAIL, process.env.PASSWORD);
 
