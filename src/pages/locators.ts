@@ -22,10 +22,18 @@ export const locators = {
   filtersMinCtrV: (page) => page.locator('[id="ads_stats.ctr_v"]').getByText('Min'),
   filtersMinCtr: (page) => page.locator('[id="ads_stats.ctr"]').getByText('Min'),
   filtersMinVideoViewRate: (page) => page.locator('[id="ads_stats.video_view_rate"]').getByText('Min'),
-  filtersMinSubscribers: (page) => page.locator('[id="stats.subscribers"]').getByText('Min', { exact: true }),
-  filtersMin30Subscribers: (page) => page.locator('[id="stats.last_30day_subscribers"] > .holder.min'),
+  filtersMinVideoViewRate: (page) => page.locator('[id="ads_stats.video_view_rate"]').getByText('Min'),
+  filtersMinSubscribers: (page) => page.locator('[id="stats.last_30day_subscribers"] > .holder.min'),
   filtersMinViews: (page) => page.locator('[id="stats.last_30day_views"] > .holder.min'),
   filtersMinViewsPerVideo: (page) => page.locator('[id="stats.views_per_video"] > .holder.min'),
+
+  filtersApplyButton: (page) => page.getByText('Apply Filters'),
+  filtersResetButton: (page) => page.getByText('Reset'),
+  filtersResetAllButton: (page) => page.getByText('All'),
+
+  filtersYesButton: (page) => page.getByText(/^Yes\s*\(/),
+  filtersNoButton: (page) => page.getByText(/^No\s*\(/), 
+  
 
 
 };

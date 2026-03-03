@@ -21,7 +21,7 @@ export default defineConfig({
     video: 'retain-on-failure',
 
     permissions: ['geolocation'],
-    // autorisation reuse:
+    // authorization reuse:
     storageState: 'storageState.json',
   },
 

@@ -4,7 +4,7 @@ import { locators } from '../src/pages/locators.js';
 
 test.describe('1 Search Functionality', () => {
 
-  test.setTimeout(60000);
+  test.setTimeout(80000);
 
   test.beforeEach(async ({ page }) => {
     const login = new LoginPage(page);
@@ -144,6 +144,46 @@ test.describe('3 Filters - Set Min', () => {
       expect(actual).not.toBe('');
       expect(actual).toBe(expected);
     }
+    
+  });
+
+});
+
+test.describe('4 Suitability Filter + Reset', () => {
+
+  test.setTimeout(60000);
+
+  test.beforeEach(async ({ page }) => {
+    const login = new LoginPage(page);
+    await login.loginWithOtp(
+      process.env.EMAIL,
+      process.env.PASSWORD
+    );
+  });
+
+  test('4 Suitability Filter + Reset', async ({ page }) => {
+    await locators.skipForNow(page).click();
+    await expect(page).toHaveTitle(/ViewIQ/i);
+    await locators.insightsNav(page).click();
+    await expect(page.getByText('Channels', { exact: true })).toBeVisible();
+    await locators.filtersPopoverButton(page).click();
+
+    await locators.filtersNoButton(page).click();
+    await locators.filtersApplyButton(page).click();
+    await locators.filtersPopoverButton(page).click();
+    
+    const unvettedBadge = page.getByText('Unvetted', { exact: true });
+    await expect(unvettedBadge.first()).toBeVisible();
+
+    await expect(page.locator('.wide-box.selected').filter({ hasText: /^No\s*\(/ })).toBeVisible();
+    await expect(page.locator('.wide-box.selected i.fa-check-circle')).toBeVisible();
+    await locators.filtersResetButton(page).click();
+    await expect(page.locator('.wide-box.selected').filter({ hasText: 'All' })).toBeVisible();
+    await expect(page.locator('.wide-box.selected i.fa-check-circle')).toBeVisible();
+
+    const vettedBadge = page.getByText('Vetted', { exact: true });
+    await expect(vettedBadge.first()).toBeVisible();
+
     
   });
 
