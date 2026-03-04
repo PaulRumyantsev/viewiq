@@ -62,3 +62,69 @@ export class ChannelsPagination {
     await this.page200.click();
   }
 }
+
+export class ChannelsFiltersMin {
+  constructor(page) {
+    this.page = page;
+
+    this.filtersButton = page.getByText('Filters').first();
+  }
+
+  async openFilters() {
+    await this.filtersButton.click();
+  }
+
+  async setMinAndValidate(sectionId) {
+
+    const section = this.page.locator(`[id="${sectionId}"]`);
+
+    const minButton = section.getByText('Min', { exact: true }).first();
+    const input = section.locator('input').first();
+
+    await minButton.click();
+
+    const expected = await input.getAttribute('min');
+    const actual = (await input.inputValue()).replace(/,/g, '');
+
+    return { expected, actual };
+  }
+}
+
+export class ChannelsSuitabilityFilter {
+  constructor(page) {
+    this.page = page;
+
+    this.filtersBtn = page.getByText('Filters').first();
+    this.applyBtn = page.getByText('Apply Filters');
+    this.resetBtn = page.getByText('Reset');
+
+    this.noOption = page.getByText(/^No\s*\(/).first();
+
+    this.selectedBox = page.locator('.wide-box.selected');
+    this.selectedCheck = page.locator('.wide-box.selected i.fa-check-circle');
+  }
+
+  async openFilters() {
+    await this.filtersBtn.click();
+  }
+
+  async applyNotVetted() {
+    await this.openFilters();
+    await this.noOption.click();
+    await this.applyBtn.click();
+  }
+
+  async expectNotVettedApplied() {
+    await expect(this.page.getByText('Unvetted', { exact: true }).first()).toBeVisible();
+    await this.openFilters();
+    await expect(this.selectedBox.filter({ hasText: /^No\s*\(/ })).toBeVisible();
+    await expect(this.selectedCheck).toBeVisible();
+  }
+
+  async resetAndExpectCleared() {
+    await this.resetBtn.click();
+    await expect(this.selectedBox.filter({ hasText: 'All' })).toBeVisible();
+    await expect(this.selectedCheck).toBeVisible();
+    await expect(this.page.getByText('Vetted', { exact: true }).first()).toBeVisible();
+  }
+}
