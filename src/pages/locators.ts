@@ -32,7 +32,15 @@ export const locators = {
   filtersResetAllButton: (page) => page.getByText('All'),
 
   filtersYesButton: (page) => page.getByText(/^Yes\s*\(/),
-  filtersNoButton: (page) => page.getByText(/^No\s*\(/), 
+  filtersNoButton: (page) => page.getByText(/^No\s*\(/),
+
+  // Videos tab
+  searchVideos: (page) => page.getByRole('searchbox', { name: 'Search Videos' }),
+
+  filterVideosTotal: (page) => page.locator('[id="stats.views"]').getByText('Min', { exact: true }),
+  filterVideosDaily: (page) => page.locator('[id="stats.last_day_views"]').getByText('Min', { exact: true }),
+  filterVideosSubscribers: (page) => page.locator('[id="stats.channel_subscribers"]').getByText('Min', { exact: true }),
+
   
 
 

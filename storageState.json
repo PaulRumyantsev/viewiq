@@ -2,20 +2,20 @@
   "cookies": [
     {
       "name": "_ga",
-      "value": "GA1.1.1821633768.1772583669",
+      "value": "GA1.1.674125593.1772641075",
       "domain": ".viewiq.com",
       "path": "/",
-      "expires": 1807143669.200669,
+      "expires": 1807201074.555822,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "_ga_T8VKV96293",
-      "value": "GS2.1.s1772583669$o1$g1$t1772583676$j53$l0$h0",
+      "value": "GS2.1.s1772641074$o1$g1$t1772641081$j53$l0$h0",
       "domain": ".viewiq.com",
       "path": "/",
-      "expires": 1807143676.406802,
+      "expires": 1807201081.91231,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -27,15 +27,15 @@
       "localStorage": [
         {
           "name": "auth_token",
-          "value": "d6b93287bcb8437ba5a54f6a840b32e0ccae145c"
+          "value": "b00c30ac1fa91c705e606bd593bb78c348c9f856"
         },
         {
           "name": "_pendo_meta.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
-          "value": "{\"ttl\":1781223676445,\"value\":1818451581}"
+          "value": "{\"ttl\":1781281081950,\"value\":1818451581}"
         },
         {
           "name": "_pendo_visitorId.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
-          "value": "{\"ttl\":1781223676443,\"value\":\"15831\"}"
+          "value": "{\"ttl\":1781281081949,\"value\":\"15831\"}"
         },
         {
           "name": "_pendo_utm.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
@@ -43,7 +43,7 @@
         },
         {
           "name": "_pendo_sessionId.7fb9dc40-471e-4c78-7612-fcbacaafb6a3",
-          "value": "{\"sessionId\":\"KnH3l1l96E57ecsQ\",\"timestamp\":1772583676447}"
+          "value": "{\"sessionId\":\"dtAVGG5pV8tN9O5H\",\"timestamp\":1772641081951}"
         }
       ]
     }
