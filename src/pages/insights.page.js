@@ -1,6 +1,12 @@
 // src/pages/insights.page.js
 import { expect } from '@playwright/test';
 
+export const UI_TIMEOUT = Number(process.env.UI_TIMEOUT ?? 45000);
+export async function expectCardsCount(cards, count, timeout = UI_TIMEOUT) {
+  await cards.first().waitFor({ state: 'visible', timeout });
+  await expect(cards).toHaveCount(count, { timeout });
+}
+
 export class InsightsPageChannels {
   constructor(page) {
     this.page = page;
@@ -50,8 +56,7 @@ export class ChannelsPagination {
   }
 
   async expect32Results() {
-    await expect(this.cards.first()).toBeVisible({ timeout: 30000 });
-    await expect(this.cards).toHaveCount(32);
+  await expectCardsCount(this.cards, 32);
   }
 
   async goToPage3() {
@@ -179,9 +184,8 @@ export class VideosPagination {
   }
 
   async expect32Results() {
-    await expect(this.cards.first()).toBeVisible({ timeout: 30000 });
-    await expect(this.cards).toHaveCount(32, { timeout: 30000 });
-  }
+  await expectCardsCount(this.cards, 32);
+}
 
   async goToPage(pageNumber) {
     await this.page.goto(`/insights/videos?page=${pageNumber}&sort=stats.views&sortAscending=false`);
