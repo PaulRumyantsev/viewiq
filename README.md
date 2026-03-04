@@ -2,7 +2,7 @@
 
 This repository contains automated tests for the **ViewIQ Demo Application** built with **Playwright**.
 
-The project demonstrates different automation approaches used in real QA environments including:
+The project demonstrates multiple automation approaches used in real QA environments including:
 
 * Page Object Model (POM)
 * Hybrid locator framework
@@ -48,10 +48,10 @@ The project demonstrates different automation approaches used in real QA environ
 ├── playwright.config.js
 │
 ├── global-setup.js
-├── storageState.json
+├── storageState.json (generated)
 │
-├── .env
 ├── .env.example
+├── .gitignore
 ├── package.json
 ├── package-lock.json
 └── README.md
@@ -61,7 +61,7 @@ The project demonstrates different automation approaches used in real QA environ
 
 # Installation
 
-Clone the repository and install dependencies:
+Clone the repository and install dependencies.
 
 ```bash
 npm install
@@ -72,7 +72,7 @@ npx playwright install
 
 # Environment Setup
 
-Create a `.env` file using the example template:
+Create a `.env` file using the example template.
 
 ```bash
 cp .env.example .env
@@ -96,7 +96,7 @@ MAILOSAUR_SERVER_ID=your_server_id
 
 ## Atomic Mode
 
-Each test performs login independently.
+Each test performs login independently to ensure full test isolation.
 
 ```bash
 npm run test:atomic
@@ -106,11 +106,13 @@ npm run test:atomic
 
 ## Fast Mode
 
-Login is executed once using **global setup**, and the session is reused for all tests.
+Login is executed once using **global setup**, and the session is reused across all tests using `storageState`.
 
 ```bash
 npm run test:fast
 ```
+
+This mode significantly speeds up test execution.
 
 ---
 
@@ -124,14 +126,28 @@ npm run report
 
 ---
 
+# Test Design
+
+Tests are designed to be **atomic** — each test performs login independently to ensure full test isolation.
+
+This approach allows tests to:
+
+* run independently
+* run in parallel
+* remain stable in CI environments
+
+Additionally, a **Fast execution mode** is provided using shared authentication (`storageState`) to improve performance when isolation is not required.
+
+---
+
 # Implemented Test Scenarios
 
 ## 1️⃣ Search Functionality
 
 * Login to the application
 * Navigate to **Insights**
-* Search for a channel
-* Validate search results
+* Search for a known influencer (e.g. **"MrBeast"**)
+* Assert that the result contains the search term
 
 ---
 
@@ -201,24 +217,22 @@ Benefits:
 
 ## Hybrid Locator Framework
 
-Some tests use a hybrid locator approach.
+Some tests use a hybrid locator approach where selectors are separated from test logic.
 
 ```
 src/pages/locators.ts
 ```
 
-This pattern separates selectors from test logic.
-
 ---
 
 ## API + UI Validation
 
-Pagination tests validate:
+Pagination tests validate both:
 
 * UI results
 * API responses
 
-This ensures stronger test reliability.
+This improves test reliability and ensures UI data matches backend responses.
 
 ---
 
@@ -228,10 +242,10 @@ The application uses **email OTP authentication**.
 
 Automation flow:
 
-1. Login triggers OTP email
-2. Mailosaur API retrieves the email
-3. OTP code is extracted
-4. OTP is automatically entered in the UI
+1. Login request triggers OTP email
+2. Mailosaur API retrieves the message
+3. OTP code is extracted automatically
+4. OTP is entered in the UI to complete login
 
 ---
 
@@ -245,19 +259,33 @@ Each test logs in independently.
 
 Advantages:
 
-* complete test isolation
+* full test isolation
 * easier debugging
+* reliable parallel execution
 
 ---
 
 ### Fast Mode
 
-Login runs once and session is reused using `storageState`.
+Login runs once and the authenticated session is reused using `storageState`.
 
 Advantages:
 
-* faster execution
-* suitable for CI pipelines
+* significantly faster execution
+* optimized for CI pipelines
+
+---
+
+# CI Ready
+
+The project is designed to run reliably in CI environments.
+
+Tests can run:
+
+* independently (Atomic mode)
+* using shared authentication (Fast mode)
+
+Parallel execution is supported via Playwright configuration.
 
 ---
 
@@ -269,6 +297,12 @@ This project focuses on demonstrating:
 * multiple testing strategies
 * realistic QA automation practices
 
-The goal is to showcase **different automation patterns** rather than enforce a single framework design.
+The goal is to showcase **different automation patterns** rather than enforce a single rigid framework design.
 
 ---
+
+# Author
+
+Automation challenge implemented using **Playwright**.
+
+The framework demonstrates multiple automation strategies including POM, hybrid locators, API validation, and OTP automation.

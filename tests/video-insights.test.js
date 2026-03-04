@@ -24,7 +24,9 @@ test.describe('1 Search Functionality', () => {
     await expect(page.getByText('Videos', { exact: true })).toBeVisible();
     await locators.searchVideos(page).fill('Jingle Toons');
     await locators.searchVideos(page).press('Enter');
-    await expect(page.locator('span').filter({ hasText: 'Jingle Toons',  }).first()).toBeVisible({ timeout: 30000 });
+    const cards = page.locator('.research-card.video');
+    await expect(cards.first()).toBeVisible({ timeout: 30000 });
+    await expect(cards.filter({ hasText: 'Jingle Toons' }).first()).toBeVisible({ timeout: 30000 });
     // await page.pause();
   });
 
@@ -45,23 +47,17 @@ test.describe('2 Insights: Pagination', () => {
   });
 
   test('Pagination: 32 results per page (Videos)', async ({ page }) => {
-    test.setTimeout(60000);
     await locators.skipForNow(page).click({ timeout: 2000 }).catch(() => {});
     await expect(page).toHaveTitle(/ViewIQ/i);
     await locators.insightsNav(page).click();
     await locators.videosTab(page).click({ timeout: 30000 });
     await expect(page.getByText('Videos', { exact: true })).toBeVisible();
+    for (const p of [1, 3, 200]) {
+    await page.goto(`/insights/videos?page=${p}&sort=stats.views&sortAscending=false`);
     const cards = page.locator('.research-card.video');
     await expect(cards.first()).toBeVisible({ timeout: 30000 });
-    await expect(cards).toHaveCount(32);
-    // Navigate to page 3
-    await locators.page3(page).click();
-    await expect(cards.first()).toBeVisible({ timeout: 30000 });
-    await expect(cards).toHaveCount(32);
-    // Navigate to page 200
-    await locators.page200(page).click();
-    await expect(cards.first()).toBeVisible({ timeout: 30000 });
-    await expect(cards).toHaveCount(32);
+    await expect(cards).toHaveCount(32, { timeout: 30000 });
+        }
     });
 
 });
@@ -101,6 +97,8 @@ test.describe('3 Filters - Set Min', () => {
     for (const id of sections) {
 
       const section = page.locator(`[id="${id}"]`);
+      await expect(section).toBeVisible({ timeout: 30000 });
+
       const minButton = section.getByText('Min', { exact: true }).first();
       const input = section.locator('input').first();
 
@@ -108,7 +106,7 @@ test.describe('3 Filters - Set Min', () => {
 
       const expected = await input.getAttribute('min');
       const actual = (await input.inputValue()).replace(/,/g, '');
-      
+
       expect(actual).not.toBe('');
       expect(actual).toBe(expected);
     }

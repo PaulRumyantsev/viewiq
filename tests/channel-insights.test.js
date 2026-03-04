@@ -43,7 +43,7 @@ test.describe('2 Insights: Pagination', () => {
     );
   });
 
-  test('Pagination: 32 results per page (Channels)', async ({ page }) => {
+  test('Pagination: 32 results per page (Channels) e2e like test', async ({ page }) => {
     await locators.skipForNow(page).click({ timeout: 2000 }).catch(() => {});
     await expect(page).toHaveTitle(/ViewIQ/i);
     await locators.insightsNav(page).click();
