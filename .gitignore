@@ -6,4 +6,13 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# env
 .env
+
+# auth state
+storageState.json
+
+# logs
+*.log
+trace.zip
