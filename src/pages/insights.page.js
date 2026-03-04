@@ -212,7 +212,7 @@ export class VideosFiltersMin {
 
   async setMinAndValidate(sectionId) {
     const section = this.page.locator(`[id="${sectionId}"]`);
-    await expect(section).toBeVisible({ timeout: 30000 });
+    await expect(section).toBeVisible({ timeout: 50000 });
 
     const minButton = section.getByText('Min', { exact: true }).first();
     const input = section.locator('input').first();

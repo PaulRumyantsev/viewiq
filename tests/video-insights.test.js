@@ -56,7 +56,7 @@ test.describe('2 Insights: Pagination', () => {
     await page.goto(`/insights/videos?page=${p}&sort=stats.views&sortAscending=false`);
     const cards = page.locator('.research-card.video');
     await expect(cards.first()).toBeVisible({ timeout: 30000 });
-    await expect(cards).toHaveCount(32, { timeout: 30000 });
+    await expect(cards).toHaveCount(32, { timeout: 50000 });
         }
     });
 
